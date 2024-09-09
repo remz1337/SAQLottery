@@ -32,7 +32,7 @@ old_href=$(cat href)
 
 # Grab lottery page
 rm lottery.html
-curl https://www.saq.com/en/new-products/lottery -o lottery.html
+curl -s https://www.saq.com/en/new-products/lottery -o lottery.html
 
 new_href=$(xmllint --html --nowarning --xpath "/html/body/div[3]/div[2]/div[1]/div[4]/div/div/div[3]/div/div[1]/div/div[1]/div[2]/div/a/@href" lottery.html 2>/dev/null)
 #echo "new:$new_href"

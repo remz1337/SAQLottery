@@ -28,8 +28,8 @@ Wants=saqlottery.timer
 Type=oneshot
 #Environment="discord_webhook_url=https://discord.com/api/webhooks/<REPLACE BY YOUR OWN URL AND UNCOMMENT>"
 ExecStart=bash /opt/SAQLottery/SAQLottery.sh
-StandardOutput=truncate:/var/log/saqlottery.log
-StandardError=truncate:/var/log/saqlottery.log
+#StandardOutput=truncate:/var/log/saqlottery.log
+#StandardError=truncate:/var/log/saqlottery.log
 
 [Install]
 WantedBy=multi-user.target
