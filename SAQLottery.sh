@@ -42,11 +42,16 @@ if [ "$new_href" != "$old_href" ]; then
   href_diff=1
 fi
 
-new_p=$(xmllint --html --nowarning --xpath "/html/body/div[3]/div[2]/div[1]/div[4]/div/div/div[3]/div/div[1]/div/div[1]/div[1]/p" lottery.html 2>/dev/null)
-#echo "new p:$new_p"
+opening_date=$(xmllint --html --nowarning --xpath "/html/body/div[3]/div[2]/div[1]/div[4]/div/div/div[3]/div/div[1]/div/div[1]/div[1]/p/strong/text()" lottery.html 2>/dev/null)
+#echo "new p:$opening_date"
+
+opening_epoch=$(date -d "${opening_date} +8 hours" +"%s")
+
+timestamp=$(date +'%s')
 
 lottery_open=0
-if [ -z "$new_p" ]; then
+if [[ $timestamp -ge $opening_epoch ]]; then
+  #echo "LOTTERY IS OPEN!"
   lottery_open=1
 fi
 
