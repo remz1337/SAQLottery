@@ -26,6 +26,7 @@ Wants=saqlottery.timer
 
 [Service]
 Type=oneshot
+WorkingDirectory=/opt/SAQLottery
 #Environment="discord_webhook_url=https://discord.com/api/webhooks/<REPLACE BY YOUR OWN URL AND UNCOMMENT>"
 ExecStart=bash /opt/SAQLottery/SAQLottery.sh
 #StandardOutput=truncate:/var/log/saqlottery.log

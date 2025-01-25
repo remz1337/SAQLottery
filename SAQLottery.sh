@@ -27,7 +27,10 @@ EOF
 
 
 #Read last href
-old_href=$(cat href)
+old_href="tmp"
+if [ -e href ]; then
+  old_href=$(cat href)
+fi
 #echo "old:$old_href"
 
 # Grab lottery page
@@ -43,7 +46,12 @@ if [ "$new_href" != "$old_href" ]; then
 fi
 
 opening_date=$(xmllint --html --nowarning --xpath "/html/body/div[3]/div[2]/div[1]/div[4]/div/div/div[3]/div/div[1]/div/div[1]/div[1]/p/strong/text()" lottery.html 2>/dev/null)
-#echo "new p:$opening_date"
+#echo "opening_date:$opening_date"
+
+if [ ! ${#opening_date} -gt 5 ]; then
+#  echo "no date meaning it's already open"
+  opening_date=$(date '+%Y-%m-%d')
+fi
 
 opening_epoch=$(date -d "${opening_date} +8 hours" +"%s")
 
