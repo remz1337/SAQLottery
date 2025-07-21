@@ -40,6 +40,13 @@ curl -s https://www.saq.com/en/new-products/lottery -o lottery.html
 new_href=$(xmllint --html --nowarning --xpath "/html/body/div[3]/div[2]/div[1]/div[4]/div/div/div[3]/div/div[1]/div/div[1]/div[2]/div/a/@href" lottery.html 2>/dev/null)
 #echo "new:$new_href"
 
+# Sanity check on the HTML webpage structure, in case something happened with the download
+if [ $? -ne 0 ]; then
+  xmllint --html --xpath "/html/body/div[3]/div[2]/div[1]/div[4]/div/div/div[3]/div/div[1]/div/div[1]/div[2]/div/a/@href" lottery.html
+  echo "Issue parsing HTML page. Exiting."
+  exit
+fi
+
 data_pb_style=$(xmllint --html --nowarning --xpath "/html/body/div[3]/div[2]/div[1]/div[4]/div/div/div[3]/div/div[1]/div/div[1]/div[2]/@data-pb-style" lottery.html 2>/dev/null)
 class=$(echo ${data_pb_style}| cut -d'"' -f 2)
 #echo "class:$class"
